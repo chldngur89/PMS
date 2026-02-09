@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Search, Settings, Plus, BarChart3, FileText, Target, Clock, Users, FolderKanban, GanttChart, Languages, Home } from 'lucide-react';
+import { Calendar, Search, Settings, Plus, BarChart3, FileText, Target, Clock, Users, FolderKanban, GanttChart, Languages, Home, Radio, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Switch } from './ui/switch';
@@ -244,32 +244,56 @@ export function PMSSidebar({
 
         <Separator className="mb-6" />
 
-        <h3 className="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t.team}</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t.team}</h3>
+          <Badge variant="secondary" className="bg-emerald-50 text-emerald-600 border-emerald-100 text-[10px] gap-1 px-1.5 h-5">
+            <Radio size={10} className="animate-pulse" /> {members.length}
+          </Badge>
+        </div>
         <div className="space-y-3 mb-6">
-          {members.map((member) => {
-            const memberTasks = tasks.filter(t => t.assignee === member.name && t.status !== 'done');
-            return (
-              <div key={member.id} className="flex items-center justify-between group/member">
-                <div className="flex items-center space-x-3">
-                  <div 
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-white"
-                    style={{ backgroundColor: member.color }}
-                  >
-                    {member.name.substring(0, 2)}
+          {members.length === 0 ? (
+            <div className="py-2 text-center">
+              <p className="text-[11px] text-slate-400 italic">접속 중인 멤버가 없습니다.</p>
+            </div>
+          ) : (
+            members.map((member) => {
+              const memberTasks = tasks.filter(t => t.assignee === member.name && t.status !== 'done');
+              return (
+                <div key={member.id} className="flex items-center justify-between group/member">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <div 
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-white"
+                        style={{ backgroundColor: member.color }}
+                      >
+                        {member.name.substring(0, 2)}
+                      </div>
+                      <span className="absolute bottom-0 right-0 w-2 h-2 bg-emerald-500 border-2 border-white rounded-full shadow-sm"></span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-slate-700">{member.name}</span>
+                      <span className="text-[10px] text-slate-400">{member.role}</span>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-slate-700">{member.name}</span>
-                    <span className="text-[10px] text-slate-400">{member.role}</span>
-                  </div>
+                  {memberTasks.length > 0 && (
+                    <Badge variant="outline" className="text-[9px] h-4 px-1 border-slate-200 text-slate-400">
+                      {memberTasks.length}
+                    </Badge>
+                  )}
                 </div>
-                {memberTasks.length > 0 && (
-                  <Badge variant="outline" className="text-[9px] h-4 px-1 border-slate-200 text-slate-400">
-                    {memberTasks.length}
-                  </Badge>
-                )}
-              </div>
-            );
-          })}
+              );
+            })
+          )}
+        </div>
+
+        <div className="mb-6 p-3 bg-slate-50/50 rounded-xl border border-slate-100 shadow-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <User size={14} className="text-blue-500" />
+            <span className="text-[11px] font-bold text-slate-800">Team Insights</span>
+          </div>
+          <p className="text-[10px] text-slate-400 leading-relaxed font-medium">
+            현재 프로젝트에 {members.length}명의 팀원이 실시간으로 협업 중입니다.
+          </p>
         </div>
 
         <Separator className="mb-6" />

@@ -5,8 +5,19 @@ import { CreateTaskDialog } from './components/CreateTaskDialog';
 import { Toaster } from './components/ui/sonner';
 import { supabase } from './lib/supabase';
 import { startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
+import { Header } from './components/Header';
+import { useAuth } from './contexts/AuthContext';
+import { LoginDialog } from './components/LoginDialog';
 
 export type Language = 'ko' | 'en';
+
+export interface OnlineUser {
+  id: string;
+  name: string;
+  avatar?: string;
+  email: string;
+  online_at: string;
+}
 
 export interface TeamMember {
   id: string;
@@ -49,13 +60,52 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
     showDeadlines: true,
   });
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [members, setMembers] = useState<TeamMember[]>([
-    { id: 'm1', name: '김철수', role: 'Project Manager', color: '#3b82f6' },
-    { id: 'm2', name: '이영희', role: 'UI/UX Designer', color: '#ec4899' },
-    { id: 'm3', name: '박지훈', role: 'Frontend Developer', color: '#10b981' },
-    { id: 'm4', name: '최민지', role: 'Backend Developer', color: '#f59e0b' },
-  ]);
+  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+
+  const { user, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      setOnlineUsers([]);
+      return;
+    }
+
+    const channel = supabase.channel('online-users', {
+      config: {
+        presence: {
+          key: user.id,
+        },
+      },
+    });
+
+    channel
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState();
+        const users = Object.values(state).flat() as any[];
+        setOnlineUsers(users.map(u => ({
+          id: u.user_id,
+          name: u.user_name || u.email.split('@')[0],
+          email: u.email,
+          online_at: u.online_at
+        })));
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await channel.track({
+            user_id: user.id,
+            user_name: user.user_metadata.full_name || user.email?.split('@')[0],
+            email: user.email,
+            online_at: new Date().toISOString(),
+          });
+        }
+      });
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [user]);
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -226,6 +276,10 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
     inProgress: tasks.filter(t => t.status === 'in-progress' || (t.progress > 0 && t.progress < 100)).length,
   };
 
+  if (authLoading) {
+    return <div className="h-screen w-screen flex items-center justify-center bg-slate-50 text-slate-400 italic">로딩 중...</div>;
+  }
+
   return (
     <div className="flex h-screen bg-background">
       <PMSSidebar
@@ -242,21 +296,34 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
         onSettingsChange={setSettings}
         onCreateTask={() => setIsCreateDialogOpen(true)}
         stats={projectStats}
-        members={members}
+        members={onlineUsers.map(u => ({
+          id: u.id,
+          name: u.name,
+          role: 'Online',
+          color: '#3b82f6'
+        }))}
         tasks={tasks}
       />
       
-      <PMSContent
-        language={language}
-        view={currentView}
-        tasks={filteredTasks}
-        onDeleteTask={handleDeleteTask}
-        onUpdateTask={handleUpdateTask}
-        settings={settings}
-        viewDate={viewDate}
-        onViewDateChange={setViewDate}
-        members={members}
-      />
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <Header onlineUsers={onlineUsers} onLoginClick={() => setIsLoginDialogOpen(true)} />
+        <PMSContent
+          language={language}
+          view={currentView}
+          tasks={filteredTasks}
+          onDeleteTask={handleDeleteTask}
+          onUpdateTask={handleUpdateTask}
+          settings={settings}
+          viewDate={viewDate}
+          onViewDateChange={setViewDate}
+          members={onlineUsers.map(u => ({
+            id: u.id,
+            name: u.name,
+            role: 'Team Member',
+            color: '#3b82f6'
+          }))}
+        />
+      </div>
 
       <CreateTaskDialog
         language={language}
@@ -265,7 +332,17 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
         onCreateTask={handleCreateTask}
         categories={categories}
         defaultDate={viewDate}
-        members={members}
+        members={onlineUsers.map(u => ({
+          id: u.id,
+          name: u.name,
+          role: 'Team Member',
+          color: '#3b82f6'
+        }))}
+      />
+
+      <LoginDialog 
+        open={isLoginDialogOpen} 
+        onOpenChange={setIsLoginDialogOpen} 
       />
 
       <Toaster />
