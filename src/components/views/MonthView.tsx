@@ -6,7 +6,8 @@ import { Badge } from '../ui/badge';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Task, PMSSettings, Language } from '../../PMSApp';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, addMonths, subMonths, isWithinInterval } from 'date-fns';
-import { ko, enUS } from 'date-fns/locale';
+import { ko } from 'date-fns/locale/ko';
+import { enUS } from 'date-fns/locale/en-US';
 
 interface MonthViewProps {
   language: Language;

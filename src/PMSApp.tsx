@@ -8,6 +8,14 @@ import { startOfMonth, endOfMonth, isWithinInterval } from 'date-fns';
 
 export type Language = 'ko' | 'en';
 
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  avatar?: string;
+  color: string;
+}
+
 export interface Task {
   id: string;
   title: string;
@@ -41,11 +49,13 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
     showDeadlines: true,
   });
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [members, setMembers] = useState<TeamMember[]>([
+    { id: 'm1', name: '김철수', role: 'Project Manager', color: '#3b82f6' },
+    { id: 'm2', name: '이영희', role: 'UI/UX Designer', color: '#ec4899' },
+    { id: 'm3', name: '박지훈', role: 'Frontend Developer', color: '#10b981' },
+    { id: 'm4', name: '최민지', role: 'Backend Developer', color: '#f59e0b' },
+  ]);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -80,6 +90,108 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
     }
   };
 
+  useEffect(() => {
+    fetchTasks();
+
+    const channel = supabase
+      .channel('tasks-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, (payload) => {
+        fetchTasks();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const logActivity = async (action: string, entity: string, details?: string) => {
+    try {
+      await supabase.from('activity_logs').insert([{
+        action_type: action,
+        entity_name: entity,
+        details: details,
+        user_name: '사용자'
+      }]);
+    } catch (err) {
+      console.error('Failed to log activity:', err);
+    }
+  };
+
+  const handleCreateTask = async (newTask: Omit<Task, 'id'>) => {
+    try {
+      const { data, error } = await supabase
+        .from('tasks')
+        .insert([{
+          name: newTask.title,
+          category: newTask.category,
+          start_date: newTask.startDate.toISOString(),
+          end_date: newTask.endDate.toISOString(),
+          progress: newTask.progress,
+          color: newTask.color,
+          assignee: newTask.assignee,
+          description: newTask.description,
+          status: newTask.status,
+          priority: newTask.priority,
+        }])
+        .select();
+
+      if (error) throw error;
+      await logActivity('create', newTask.title);
+      fetchTasks();
+    } catch (error) {
+      console.error('Error creating task:', error);
+    }
+  };
+
+  const handleDeleteTask = async (taskId: string) => {
+    const taskToDelete = tasks.find(t => t.id === taskId);
+    try {
+      const { error } = await supabase.from('tasks').delete().eq('id', taskId);
+      if (error) throw error;
+      if (taskToDelete) await logActivity('delete', taskToDelete.title);
+      setTasks(prev => prev.filter(t => t.id !== taskId));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+
+  const handleUpdateTask = async (taskId: string, updatedTask: Partial<Task>) => {
+    const originalTask = tasks.find(t => t.id === taskId);
+    try {
+      const payload: any = {};
+      if (updatedTask.title) payload.name = updatedTask.title;
+      if (updatedTask.category) payload.category = updatedTask.category;
+      if (updatedTask.startDate) payload.start_date = updatedTask.startDate.toISOString();
+      if (updatedTask.endDate) payload.end_date = updatedTask.endDate.toISOString();
+      if (updatedTask.progress !== undefined) payload.progress = updatedTask.progress;
+      if (updatedTask.status) payload.status = updatedTask.status;
+      if (updatedTask.priority) payload.priority = updatedTask.priority;
+
+      const { error } = await supabase.from('tasks').update(payload).eq('id', taskId);
+      if (error) throw error;
+      
+      if (originalTask && updatedTask.title && originalTask.title !== updatedTask.title) {
+        await logActivity('update', updatedTask.title, `이름 변경`);
+      } else if (originalTask) {
+        await logActivity('update', originalTask.title);
+      }
+      
+      fetchTasks();
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  };
+
+  const filteredTasks = tasks.filter(task => {
+    const matchesCategory = selectedCategories.includes(task.category);
+    const matchesSearch = searchQuery === '' || 
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.assignee?.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
   const categories = [
     { 
       name: '개발', 
@@ -107,66 +219,11 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
     },
   ];
 
-  const filteredTasks = tasks.filter(task => {
-    const matchesCategory = selectedCategories.includes(task.category);
-    const matchesSearch = searchQuery === '' || 
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.assignee?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  const handleCreateTask = async (newTask: Omit<Task, 'id'>) => {
-    try {
-      const { error } = await supabase
-        .from('tasks')
-        .insert([{
-          name: newTask.title,
-          category: newTask.category,
-          start_date: newTask.startDate.toISOString(),
-          end_date: newTask.endDate.toISOString(),
-          progress: newTask.progress,
-          color: newTask.color,
-          assignee: newTask.assignee,
-          description: newTask.description,
-          status: newTask.status,
-          priority: newTask.priority,
-        }]);
-
-      if (error) throw error;
-      fetchTasks();
-    } catch (error) {
-      console.error('Error creating task:', error);
-    }
-  };
-
-  const handleDeleteTask = async (taskId: string) => {
-    try {
-      const { error } = await supabase.from('tasks').delete().eq('id', taskId);
-      if (error) throw error;
-      setTasks(prev => prev.filter(t => t.id !== taskId));
-    } catch (error) {
-      console.error('Error deleting task:', error);
-    }
-  };
-
-  const handleUpdateTask = async (taskId: string, updatedTask: Partial<Task>) => {
-    try {
-      const payload: any = {};
-      if (updatedTask.title) payload.name = updatedTask.title;
-      if (updatedTask.category) payload.category = updatedTask.category;
-      if (updatedTask.startDate) payload.start_date = updatedTask.startDate.toISOString();
-      if (updatedTask.endDate) payload.end_date = updatedTask.endDate.toISOString();
-      if (updatedTask.progress !== undefined) payload.progress = updatedTask.progress;
-      if (updatedTask.status) payload.status = updatedTask.status;
-      if (updatedTask.priority) payload.priority = updatedTask.priority;
-
-      const { error } = await supabase.from('tasks').update(payload).eq('id', taskId);
-      if (error) throw error;
-      fetchTasks();
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
+  const projectStats = {
+    total: tasks.length,
+    delayed: tasks.filter(t => t.status === 'delayed' || t.status === 'at-risk').length,
+    completed: tasks.filter(t => t.status === 'done' || t.progress === 100).length,
+    inProgress: tasks.filter(t => t.status === 'in-progress' || (t.progress > 0 && t.progress < 100)).length,
   };
 
   return (
@@ -184,6 +241,9 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
         settings={settings}
         onSettingsChange={setSettings}
         onCreateTask={() => setIsCreateDialogOpen(true)}
+        stats={projectStats}
+        members={members}
+        tasks={tasks}
       />
       
       <PMSContent
@@ -195,6 +255,7 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
         settings={settings}
         viewDate={viewDate}
         onViewDateChange={setViewDate}
+        members={members}
       />
 
       <CreateTaskDialog
@@ -204,6 +265,7 @@ export default function App({ defaultView = 'month' }: { defaultView?: 'month' |
         onCreateTask={handleCreateTask}
         categories={categories}
         defaultDate={viewDate}
+        members={members}
       />
 
       <Toaster />

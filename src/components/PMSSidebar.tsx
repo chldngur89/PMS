@@ -9,19 +9,13 @@ import { Badge } from './ui/badge';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { PMSSettings, Language } from '../PMSApp';
 import { useNavigate } from 'react-router-dom';
+import { TeamMember, Task } from '../PMSApp';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-
-interface Category {
-  name: string;
-  nameEn: string;
-  color: string;
-  count: number;
-}
 
 interface PMSSidebarProps {
   language: Language;
@@ -36,6 +30,14 @@ interface PMSSidebarProps {
   settings: PMSSettings;
   onSettingsChange: (settings: PMSSettings) => void;
   onCreateTask: () => void;
+  stats: {
+    total: number;
+    delayed: number;
+    completed: number;
+    inProgress: number;
+  };
+  members: TeamMember[];
+  tasks: Task[];
 }
 
 const translations = {
@@ -56,6 +58,11 @@ const translations = {
     showMilestones: '마일스톤 표시',
     showDeadlines: '마감일 표시',
     backToHome: '포털로 돌아가기',
+    healthStatus: '프로젝트 상태',
+    delayed: '지연',
+    onTrack: '정상',
+    done: '완료',
+    team: '팀 멤버',
   },
   en: {
     title: 'Project Management',
@@ -74,6 +81,11 @@ const translations = {
     showMilestones: 'Show Milestones',
     showDeadlines: 'Show Deadlines',
     backToHome: 'Back to Portal',
+    healthStatus: 'Project Health',
+    delayed: 'Delayed',
+    onTrack: 'On Track',
+    done: 'Done',
+    team: 'Team Members',
   },
 };
 
@@ -90,9 +102,13 @@ export function PMSSidebar({
   settings,
   onSettingsChange,
   onCreateTask,
+  stats,
+  members,
+  tasks,
 }: PMSSidebarProps) {
   const navigate = useNavigate();
   const t = translations[language];
+
 
   const views = [
     { id: 'gantt', name: t.ganttView, icon: GanttChart },
@@ -113,28 +129,45 @@ export function PMSSidebar({
 
   return (
     <div className="w-80 bg-card border-r border-border flex flex-col">
-      <div className="p-4 flex items-center justify-between">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
-            <Home size={18} />
+      <div className="p-4 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+              <Home size={18} />
+            </div>
+            <h2 className="font-semibold text-lg">{t.title}</h2>
           </div>
-          <h2 className="font-semibold text-lg">{t.title}</h2>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Languages className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => onLanguageChange('ko')}>
+                한국어 (Korean)
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onLanguageChange('en')}>
+                English
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Languages className="w-4 h-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => onLanguageChange('ko')}>
-              한국어 (Korean)
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onLanguageChange('en')}>
-              English
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+
+        <div className="grid grid-cols-3 gap-2 py-2 border-y border-slate-100">
+           <div className="flex flex-col items-center p-2 rounded-xl bg-rose-50/50">
+              <span className="text-[10px] font-bold text-rose-500 uppercase tracking-tighter">{t.delayed}</span>
+              <span className="text-sm font-black text-rose-600">{stats.delayed}</span>
+           </div>
+           <div className="flex flex-col items-center p-2 rounded-xl bg-blue-50/50">
+              <span className="text-[10px] font-bold text-blue-500 uppercase tracking-tighter">{t.onTrack}</span>
+              <span className="text-sm font-black text-blue-600">{stats.inProgress}</span>
+           </div>
+           <div className="flex flex-col items-center p-2 rounded-xl bg-emerald-50/50">
+              <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter">{t.done}</span>
+              <span className="text-sm font-black text-emerald-600">{stats.completed}</span>
+           </div>
+        </div>
       </div>
 
       <Separator />
@@ -207,6 +240,36 @@ export function PMSSidebar({
               </Badge>
             </div>
           ))}
+        </div>
+
+        <Separator className="mb-6" />
+
+        <h3 className="mb-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t.team}</h3>
+        <div className="space-y-3 mb-6">
+          {members.map((member) => {
+            const memberTasks = tasks.filter(t => t.assignee === member.name && t.status !== 'done');
+            return (
+              <div key={member.id} className="flex items-center justify-between group/member">
+                <div className="flex items-center space-x-3">
+                  <div 
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-white"
+                    style={{ backgroundColor: member.color }}
+                  >
+                    {member.name.substring(0, 2)}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium text-slate-700">{member.name}</span>
+                    <span className="text-[10px] text-slate-400">{member.role}</span>
+                  </div>
+                </div>
+                {memberTasks.length > 0 && (
+                  <Badge variant="outline" className="text-[9px] h-4 px-1 border-slate-200 text-slate-400">
+                    {memberTasks.length}
+                  </Badge>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <Separator className="mb-6" />

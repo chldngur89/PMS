@@ -7,16 +7,8 @@ import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Slider } from './ui/slider';
-import { Task, Language } from '../PMSApp';
+import { Task, Language, TeamMember } from '../PMSApp';
 import { format } from 'date-fns';
-import { toast } from 'sonner@2.0.3';
-
-interface Category {
-  name: string;
-  nameEn: string;
-  color: string;
-  count: number;
-}
 
 interface CreateTaskDialogProps {
   language: Language;
@@ -25,6 +17,7 @@ interface CreateTaskDialogProps {
   onCreateTask: (task: Omit<Task, 'id'>) => void;
   categories: Category[];
   defaultDate?: Date;
+  members: TeamMember[];
 }
 
 const translations = {
@@ -93,6 +86,7 @@ export function CreateTaskDialog({
   onCreateTask,
   categories,
   defaultDate = new Date(),
+  members,
 }: CreateTaskDialogProps) {
   const t = translations[language];
   
@@ -278,16 +272,31 @@ export function CreateTaskDialog({
 
           {/* Assignee */}
           <div className="space-y-2">
-            <Label htmlFor="assignee" className="flex items-center space-x-2">
+            <Label className="flex items-center space-x-2">
               <User className="w-4 h-4" />
               <span>{t.assignee}</span>
             </Label>
-            <Input
-              id="assignee"
-              placeholder={t.assigneePlaceholder}
-              value={formData.assignee}
-              onChange={(e) => handleInputChange('assignee', e.target.value)}
-            />
+            <Select value={formData.assignee} onValueChange={(value) => handleInputChange('assignee', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder={t.assigneePlaceholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {members.map(member => (
+                  <SelectItem key={member.id} value={member.name}>
+                    <div className="flex items-center space-x-2">
+                      <div
+                        className="w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold text-white"
+                        style={{ backgroundColor: member.color }}
+                      >
+                        {member.name.substring(0, 2)}
+                      </div>
+                      <span>{member.name}</span>
+                      <span className="text-xs text-muted-foreground">({member.role})</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Status & Priority */}

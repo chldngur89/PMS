@@ -1,10 +1,10 @@
 import React from 'react';
-import { Task, PMSSettings, Language } from '../PMSApp';
+import { Task, PMSSettings, Language, TeamMember } from '../PMSApp';
 import { MonthView } from './views/MonthView';
 import { WeekView } from './views/WeekView';
 import { DayView } from './views/DayView';
-import { TableView } from './views/TableView';
 import { KanbanView } from './views/KanbanView';
+import { TableView } from './views/TableView';
 import { GanttView } from './views/GanttView';
 
 interface PMSContentProps {
@@ -16,6 +16,7 @@ interface PMSContentProps {
   settings: PMSSettings;
   viewDate: Date;
   onViewDateChange: (date: Date) => void;
+  members: TeamMember[];
 }
 
 export function PMSContent({
@@ -27,9 +28,10 @@ export function PMSContent({
   settings,
   viewDate,
   onViewDateChange,
+  members,
 }: PMSContentProps) {
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col overflow-hidden">
       {view === 'month' && (
         <MonthView 
           language={language}
@@ -61,18 +63,20 @@ export function PMSContent({
           settings={settings}
           currentDate={viewDate}
           onDateChange={onViewDateChange}
-        />
-      )}
-      {view === 'table' && (
-        <TableView
-          language={language}
-          tasks={tasks}
-          onDeleteTask={onDeleteTask}
-          onUpdateTask={onUpdateTask}
+          members={members}
         />
       )}
       {view === 'kanban' && (
         <KanbanView
+          language={language}
+          tasks={tasks}
+          onDeleteTask={onDeleteTask}
+          onUpdateTask={onUpdateTask}
+          members={members}
+        />
+      )}
+      {view === 'table' && (
+        <TableView
           language={language}
           tasks={tasks}
           onDeleteTask={onDeleteTask}

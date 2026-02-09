@@ -4,7 +4,8 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Task, PMSSettings, Language } from '../../PMSApp';
 import { format, startOfWeek, addDays, addWeeks, subWeeks, isSameDay, isWithinInterval } from 'date-fns';
-import { ko, enUS } from 'date-fns/locale';
+import { ko } from 'date-fns/locale/ko';
+import { enUS } from 'date-fns/locale/en-US';
 
 interface WeekViewProps {
   language: Language;

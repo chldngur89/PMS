@@ -5,15 +5,17 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Progress } from '../ui/progress';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { Task, Language } from '../../PMSApp';
+import { Task, Language, TeamMember } from '../../PMSApp';
 import { format } from 'date-fns';
-import { ko, enUS } from 'date-fns/locale';
+import { ko } from 'date-fns/locale/ko';
+import { enUS } from 'date-fns/locale/en-US';
 
 interface KanbanViewProps {
   language: Language;
   tasks: Task[];
   onDeleteTask: (taskId: string) => void;
   onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => void;
+  members: TeamMember[];
 }
 
 const translations = {
@@ -51,9 +53,11 @@ const translations = {
   },
 };
 
-export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: KanbanViewProps) {
+export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask, members }: KanbanViewProps) {
   const t = translations[language];
   const locale = language === 'ko' ? ko : enUS;
+
+  const getMemberByName = (name: string) => members.find(m => m.name === name);
 
   const statusGroups: Array<{ key: 'todo' | 'in-progress' | 'done'; label: string; color: string }> = [
     { key: 'todo', label: t.todo, color: '#94a3b8' },
@@ -98,10 +102,6 @@ export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: Kanb
       high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
     };
     return colors[priority as keyof typeof colors] || colors.medium;
-  };
-
-  const handleStatusChange = (taskId: string, newStatus: 'todo' | 'in-progress' | 'done') => {
-    onUpdateTask(taskId, { status: newStatus });
   };
 
   const TaskCard = ({ task }: { task: Task }) => (
@@ -153,9 +153,14 @@ export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: Kanb
           </div>
           
           {task.assignee && (
-            <div className="flex items-center text-xs text-muted-foreground">
-              <User className="w-3 h-3 mr-1.5" />
-              {task.assignee}
+            <div className="flex items-center gap-1.5">
+              <div 
+                className="w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-bold text-white shadow-sm"
+                style={{ backgroundColor: getMemberByName(task.assignee)?.color || '#cbd5e1' }}
+              >
+                {task.assignee.substring(0, 2)}
+              </div>
+              <span className="text-[10px] text-slate-500 font-medium">{task.assignee}</span>
             </div>
           )}
         </div>
@@ -170,9 +175,8 @@ export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: Kanb
   );
 
   return (
-    <div className="flex-1 flex flex-col p-6">
-      {/* Toolbar */}
-      <div className="flex items-center justify-between mb-6">
+    <div className="flex-1 flex flex-col p-6 overflow-hidden">
+      <div className="flex items-center justify-between mb-6 shrink-0">
         <h2 className="text-2xl font-bold">{t.title}</h2>
         <div className="text-sm text-muted-foreground">
           {t.totalTasks}: {tasks.length} {t.tasks}
@@ -186,8 +190,7 @@ export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: Kanb
             
             return (
               <div key={group.key} className="w-80 flex flex-col h-full">
-                {/* Column Header */}
-                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-t-xl border border-slate-200 border-b-0 shadow-sm">
+                <div className="flex items-center justify-between p-3 bg-slate-50 rounded-t-xl border border-slate-200 border-b-0 shadow-sm shrink-0">
                   <div className="flex items-center space-x-2">
                     <div
                       className="w-2.5 h-2.5 rounded-full shadow-sm"
@@ -200,7 +203,6 @@ export function KanbanView({ language, tasks, onDeleteTask, onUpdateTask }: Kanb
                   </div>
                 </div>
 
-                {/* Task List */}
                 <div className="flex-1 p-3 bg-slate-50/50 border border-slate-200 rounded-b-xl overflow-y-auto shadow-inner">
                   {groupTasks.length === 0 ? (
                     <div className="text-center text-slate-400 text-xs py-10 italic border-2 border-dashed border-slate-200 rounded-lg">

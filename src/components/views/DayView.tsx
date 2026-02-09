@@ -6,8 +6,10 @@ import { Progress } from '../ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Task, PMSSettings, Language } from '../../PMSApp';
 import { format, addDays, subDays, isSameDay, isWithinInterval } from 'date-fns';
-import { ko, enUS } from 'date-fns/locale';
+import { ko } from 'date-fns/locale/ko';
+import { enUS } from 'date-fns/locale/en-US';
 import { ProjectResources } from '../ProjectResources';
+import { TeamMember } from '../../PMSApp';
 
 interface DayViewProps {
   language: Language;
@@ -17,6 +19,7 @@ interface DayViewProps {
   settings: PMSSettings;
   currentDate: Date;
   onDateChange: (date: Date) => void;
+  members: TeamMember[];
 }
 
 const translations = {
@@ -52,9 +55,13 @@ const translations = {
   },
 };
 
-export function DayView({ language, tasks, onDeleteTask, onUpdateTask, settings, currentDate, onDateChange }: DayViewProps) {
+export function DayView({
+ language, tasks, onDeleteTask, onUpdateTask, settings, currentDate, onDateChange, members }: DayViewProps) {
   const t = translations[language];
   const locale = language === 'ko' ? ko : enUS;
+
+  const getMemberByName = (name: string) => members.find(m => m.name === name);
+
   
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
@@ -191,8 +198,13 @@ export function DayView({ language, tasks, onDeleteTask, onUpdateTask, settings,
                                     </span>
                                   </div>
                                   {task.assignee && (
-                                    <div className="flex items-center gap-1 text-slate-500 bg-slate-100/80 px-2 rounded-full">
-                                      <User className="w-2.5 h-2.5" />
+                                    <div className="flex items-center gap-1 text-slate-500 bg-slate-100/80 pr-2 pl-0.5 py-0.5 rounded-full">
+                                      <div 
+                                        className="w-4 h-4 rounded-full flex items-center justify-center text-[7px] font-bold text-white shadow-sm"
+                                        style={{ backgroundColor: getMemberByName(task.assignee)?.color || '#cbd5e1' }}
+                                      >
+                                        {task.assignee.substring(0, 2)}
+                                      </div>
                                       <span>{task.assignee}</span>
                                     </div>
                                   )}
