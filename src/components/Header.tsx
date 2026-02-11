@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from './ui/button';
-import { LogOut, User, Users, Bell, Search, Settings } from 'lucide-react';
+import { LogOut, User, Users, Bell, Search, Settings, Calendar, PieChart } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { supabase } from '../lib/supabase';
 
@@ -16,9 +16,11 @@ interface OnlineUser {
 interface HeaderProps {
   onlineUsers: OnlineUser[];
   onLoginClick: () => void;
+  currentView: 'sales' | 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt';
+  onViewChange: (view: 'sales' | 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt') => void;
 }
 
-export function Header({ onlineUsers, onLoginClick }: HeaderProps) {
+export function Header({ onlineUsers, onLoginClick, currentView, onViewChange }: HeaderProps) {
   const { user, signOut } = useAuth();
 
   return (
@@ -35,6 +37,26 @@ export function Header({ onlineUsers, onLoginClick }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
+          <Button
+            variant={currentView === 'sales' ? 'secondary' : 'ghost'}
+            size="sm"
+            className="rounded-xl"
+            onClick={() => onViewChange('sales')}
+          >
+            <PieChart size={16} className="mr-2" />
+            Sales 대시보드
+          </Button>
+          <Button
+            variant={currentView === 'month' ? 'secondary' : 'ghost'}
+            size="sm"
+            className="rounded-xl"
+            onClick={() => onViewChange('month')}
+          >
+            <Calendar size={16} className="mr-2" />
+            달력
+          </Button>
+        </div>
         <div className="flex items-center bg-slate-50 px-3 py-1.5 rounded-2xl border border-slate-100 shadow-sm">
           <div className="flex -space-x-2 mr-3">
             {onlineUsers.length > 0 ? (

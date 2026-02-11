@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>B&amp;W Deal Details &amp; Activity Timeline</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        :root {
+            --primary: #000000;
+            --background-light: #ffffff;
+            --border-color: #000000;
+            --muted-text: #666666;
+            --light-grey: #f3f4f6;
+            --medium-grey: #e5e7eb;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .b-border {
+            border: 1px solid var(--border-color);
+        }
+        .b-border-thick {
+            border: 2px solid var(--border-color);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "background-light": "#ffffff",
+                    },
+                    borderRadius: {
+                        "none": "0",
+                        "DEFAULT": "0",
+                        "lg": "0",
+                        "xl": "0",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-white text-black min-h-screen">
+<nav class="bg-white border-b-2 border-black sticky top-0 z-50">
+<div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-black flex items-center justify-center text-white">
+<span class="material-icons text-xl">insights</span>
+</div>
+<span class="font-extrabold text-xl tracking-tighter uppercase">DealFlow</span>
+</div>
+<div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest">
+<a class="hover:underline" href="#">Dashboard</a>
+<a class="underline underline-offset-8 decoration-2" href="#">Deals</a>
+<a class="hover:underline" href="#">Accounts</a>
+<a class="hover:underline" href="#">Contacts</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-black hover:text-white transition-colors">
+<span class="material-icons">search</span>
+</button>
+<button class="p-2 hover:bg-black hover:text-white transition-colors">
+<span class="material-icons">notifications</span>
+</button>
+<div class="h-8 w-8 border border-black overflow-hidden grayscale">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMEsPBy4TZTaKu82UuDou4sv9taUkRhHvF648B9Gi7lpz2VMUfCOCokki9M0TPtXFZL4xQ-aYmNIjO-ZtxLqsJU4a1T9RZJKCZ3oQL8vdyZ6rUpYbLa_HloiaIAFfMA2cbrk1DSYdpYj1TSowHxPUD85uWsabeJXp53LlFrePj7OPOHDIK76Fmd-hd8s3ToVYA9OupcQryASlP4D-5gz-rWRy3AV6qiVUHjLIUIrXqUFX_9RH6-DN5gr0q7vtm0Sorx0wFLeRlerg"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-[1600px] mx-auto p-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6 border-b-4 border-black pb-8">
+<div>
+<div class="flex items-center gap-4 mb-3">
+<h1 class="text-4xl font-black tracking-tighter uppercase">Enterprise Cloud Migration</h1>
+<span class="border-2 border-black text-black text-[10px] font-black px-2 py-1 uppercase tracking-tighter">High Priority</span>
+</div>
+<div class="flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-neutral-500">
+<span class="flex items-center gap-1 text-black"><span class="material-icons text-sm">person</span> Alex Rivera</span>
+<span class="flex items-center gap-1"><span class="material-icons text-sm">calendar_today</span> Oct 12, 2023</span>
+<span class="flex items-center gap-1 text-black underline">Global Tech Solutions</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-2.5 border-2 border-black font-black text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                    Edit
+                </button>
+<button class="px-6 py-2.5 border-2 border-black font-black text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                    Share
+                </button>
+<button class="px-6 py-2.5 bg-black text-white border-2 border-black font-black text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+                    Close Deal
+                </button>
+</div>
+</div>
+<div class="mb-12">
+<div class="grid grid-cols-1 md:grid-cols-5 border-2 border-black">
+<div class="flex flex-col items-center py-5 px-4 bg-neutral-100 border-r-2 border-black last:border-r-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-lg">check_circle</span>
+<span class="font-black text-xs uppercase tracking-widest">Discovery</span>
+</div>
+<span class="text-[10px] font-bold opacity-60">5 DAYS</span>
+</div>
+<div class="flex flex-col items-center py-5 px-4 bg-neutral-100 border-r-2 border-black last:border-r-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-lg">check_circle</span>
+<span class="font-black text-xs uppercase tracking-widest">Qualification</span>
+</div>
+<span class="text-[10px] font-bold opacity-60">12 DAYS</span>
+</div>
+<div class="flex flex-col items-center py-5 px-4 bg-neutral-100 border-r-2 border-black last:border-r-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-lg">check_circle</span>
+<span class="font-black text-xs uppercase tracking-widest">Proposal</span>
+</div>
+<span class="text-[10px] font-bold opacity-60">2 DAYS</span>
+</div>
+<div class="flex flex-col items-center py-5 px-4 bg-black text-white border-r-2 border-black last:border-r-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-lg">play_arrow</span>
+<span class="font-black text-xs uppercase tracking-widest">Negotiation</span>
+</div>
+<span class="text-[10px] font-bold">ACTIVE (4 DAYS)</span>
+</div>
+<div class="flex flex-col items-center py-5 px-4 bg-white text-neutral-300 border-r-2 border-black last:border-r-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-icons text-lg">radio_button_unchecked</span>
+<span class="font-black text-xs uppercase tracking-widest">Closed Won</span>
+</div>
+<span class="text-[10px] font-bold uppercase">Pending</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-10">
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<div class="border-2 border-black">
+<div class="px-5 py-4 border-b-2 border-black flex justify-between items-center bg-black text-white">
+<h2 class="font-black text-xs uppercase tracking-[0.2em]">Deal Information</h2>
+<span class="material-icons text-lg">info_outline</span>
+</div>
+<div class="p-6">
+<dl class="grid grid-cols-1 gap-y-6 text-sm">
+<div class="border-b border-neutral-200 pb-2">
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Account Name</dt>
+<dd class="font-bold text-base underline decoration-1">Global Tech Solutions</dd>
+</div>
+<div class="border-b border-neutral-200 pb-2">
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Deal Value</dt>
+<dd class="font-black text-2xl tracking-tighter">$150,000.00</dd>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="border-b border-neutral-200 pb-2">
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Expected Close</dt>
+<dd class="font-bold">DEC 15, 2023</dd>
+</div>
+<div class="border-b border-neutral-200 pb-2">
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Probability</dt>
+<dd class="font-bold flex items-center gap-2">
+                                        75% <div class="flex-1 h-2 bg-neutral-200"><div class="bg-black h-full w-[75%]"></div></div>
+</dd>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Lead Source</dt>
+<dd class="font-bold uppercase text-xs">Direct Outreach</dd>
+</div>
+<div>
+<dt class="text-[10px] font-black uppercase text-neutral-500 mb-1">Region</dt>
+<dd class="font-bold uppercase text-xs">North America</dd>
+</div>
+</div>
+</dl>
+</div>
+</div>
+<div class="border-2 border-black">
+<div class="px-5 py-4 border-b-2 border-black flex justify-between items-center bg-white">
+<h2 class="font-black text-xs uppercase tracking-[0.2em]">Key Contacts (3)</h2>
+<button class="font-black text-[10px] uppercase underline hover:no-underline">+ Add Contact</button>
+</div>
+<div class="divide-y-2 divide-black">
+<div class="p-5 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
+<div class="w-12 h-12 border-2 border-black bg-white flex items-center justify-center font-black text-sm">JD</div>
+<div class="flex-1">
+<p class="text-sm font-black uppercase tracking-tight">Jane Doe</p>
+<p class="text-[10px] font-bold text-neutral-500 uppercase">CTO (Decision Maker)</p>
+</div>
+<span class="material-icons text-black">email</span>
+</div>
+<div class="p-5 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
+<div class="w-12 h-12 border-2 border-black bg-neutral-100 flex items-center justify-center font-black text-sm">MS</div>
+<div class="flex-1">
+<p class="text-sm font-black uppercase tracking-tight">Marcus Smith</p>
+<p class="text-[10px] font-bold text-neutral-500 uppercase">IT Director (Champion)</p>
+</div>
+<span class="material-icons text-black">email</span>
+</div>
+<div class="p-5 flex items-center gap-4 hover:bg-neutral-50 transition-colors">
+<div class="w-12 h-12 border-2 border-black bg-black text-white flex items-center justify-center font-black text-sm">LL</div>
+<div class="flex-1">
+<p class="text-sm font-black uppercase tracking-tight">Laura Liang</p>
+<p class="text-[10px] font-bold text-neutral-500 uppercase">Legal Counsel (Influencer)</p>
+</div>
+<span class="material-icons text-black">email</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<div class="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+<div class="flex items-center gap-8 border-b-2 border-black mb-6 pb-2 overflow-x-auto">
+<button class="pb-2 border-b-4 border-black text-xs font-black uppercase tracking-widest flex items-center gap-2">
+<span class="material-icons text-base">note_add</span> New Note
+                        </button>
+<button class="pb-2 border-b-4 border-transparent text-neutral-400 hover:text-black hover:border-black transition-all text-xs font-black uppercase tracking-widest flex items-center gap-2">
+<span class="material-icons text-base">mail</span> Email
+                        </button>
+<button class="pb-2 border-b-4 border-transparent text-neutral-400 hover:text-black hover:border-black transition-all text-xs font-black uppercase tracking-widest flex items-center gap-2">
+<span class="material-icons text-base">call</span> Call
+                        </button>
+<button class="pb-2 border-b-4 border-transparent text-neutral-400 hover:text-black hover:border-black transition-all text-xs font-black uppercase tracking-widest flex items-center gap-2">
+<span class="material-icons text-base">event</span> Meeting
+                        </button>
+</div>
+<textarea class="w-full bg-neutral-50 border-2 border-black p-4 text-sm focus:ring-0 focus:border-black placeholder:text-neutral-400 font-medium" placeholder="TYPE ACTIVITY DETAILS..." rows="3"></textarea>
+<div class="flex justify-between items-center mt-6">
+<div class="flex gap-4">
+<button class="text-black hover:underline font-bold text-xs flex items-center gap-1"><span class="material-icons text-sm">attach_file</span> ATTACH</button>
+<button class="text-black hover:underline font-bold text-xs flex items-center gap-1"><span class="material-icons text-sm">alternate_email</span> TAG</button>
+</div>
+<button class="px-8 py-3 bg-black text-white font-black text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black border-2 border-black transition-all">
+                            Log Activity
+                        </button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-12 border-b-2 border-black pb-4">
+<h3 class="font-black text-xl uppercase tracking-tighter">Timeline Activity</h3>
+<div class="flex items-center gap-2">
+<button class="px-4 py-1 bg-black text-white text-[10px] font-black uppercase tracking-widest">All</button>
+<button class="px-4 py-1 border border-black hover:bg-black hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors">Emails</button>
+<button class="px-4 py-1 border border-black hover:bg-black hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors">Calls</button>
+</div>
+</div>
+<div class="relative space-y-10 before:absolute before:left-[19px] before:top-2 before:bottom-0 before:w-[2px] before:bg-black">
+<div class="relative pl-14">
+<div class="absolute left-0 top-1 w-10 h-10 bg-black flex items-center justify-center text-white z-10 border-4 border-white">
+<span class="material-icons text-lg">event</span>
+</div>
+<div class="border-2 border-black p-6 bg-white hover:bg-neutral-50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-black text-base uppercase tracking-tight">Pricing Negotiation Deep-Dive</h4>
+<p class="text-[10px] font-bold text-neutral-500 mt-1 uppercase tracking-wider">Scheduled for Tomorrow at 10:00 AM — Jane Doe, Alex Rivera</p>
+</div>
+<span class="border border-black text-black text-[9px] font-black px-2 py-0.5 uppercase">Upcoming</span>
+</div>
+<div class="text-sm font-medium border-l-4 border-black pl-4 py-1 italic">
+                                Agenda: Review the volume discount for multi-region deployment and finalize SLA terms for the APAC cluster.
+                            </div>
+</div>
+</div>
+<div class="relative pl-14">
+<div class="absolute left-0 top-1 w-10 h-10 bg-white border-2 border-black flex items-center justify-center text-black z-10 border-4 border-white">
+<span class="material-icons text-lg">mail</span>
+</div>
+<div class="border-2 border-black p-6 bg-white hover:bg-neutral-50 transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h4 class="font-black text-base uppercase tracking-tight">Re: Proposal Revision #2</h4>
+<p class="text-[10px] font-bold text-neutral-500 mt-1 uppercase tracking-wider">Sent 2 hours ago — to Marcus Smith</p>
+</div>
+<span class="text-[10px] font-black">10:42 AM</span>
+</div>
+<div class="text-sm text-neutral-700 leading-relaxed font-medium">
+                                Hi Marcus, following up on our conversation from earlier this morning. I've attached the updated proposal reflecting the new seat counts...
+                            </div>
+<div class="mt-4">
+<span class="text-[10px] font-black uppercase border border-black px-3 py-1.5 inline-flex items-center gap-2 hover:bg-black hover:text-white cursor-pointer transition-all">
+<span class="material-icons text-sm">attach_file</span> proposal_v2_signed.pdf
+                                </span>
+</div>
+</div>
+</div>
+<div class="relative pl-14">
+<div class="absolute left-0 top-1 w-10 h-10 bg-neutral-200 flex items-center justify-center text-black z-10 border-4 border-white">
+<span class="material-icons text-lg">call</span>
+</div>
+<div class="border-2 border-black p-6 bg-white hover:bg-neutral-50 transition-colors">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-black text-base uppercase tracking-tight">Follow-up Call: Security Review</h4>
+<p class="text-[10px] font-bold text-neutral-500 mt-1 uppercase tracking-wider">Completed Yesterday — with Laura Liang</p>
+</div>
+<span class="text-[10px] font-black">NOV 14, 2023</span>
+</div>
+<div class="text-sm">
+<ul class="space-y-2">
+<li class="flex items-start gap-3"><span class="font-black">•</span> <span>Discussed GDPR compliance for European data centers</span></li>
+<li class="flex items-start gap-3"><span class="font-black">•</span> <span>Requested SOC2 Type II report (sent immediately after)</span></li>
+<li class="flex items-start gap-3"><span class="font-black">•</span> <span>Legal team will review the MSA by Friday</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="flex justify-center pt-8">
+<button class="px-10 py-3 bg-white text-black font-black text-xs uppercase tracking-[0.3em] border-2 border-black hover:bg-black hover:text-white transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none translate-y-[-2px] hover:translate-y-0">
+                            Load Older Activities
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

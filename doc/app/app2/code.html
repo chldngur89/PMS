@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sales Process Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0176D3", // Salesforce Blue
+                        "background-light": "#F3F3F3",
+                        "background-dark": "#0B0E14",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1A1D23",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .gauge-container { position: relative; width: 140px; height: 70px; overflow: hidden; }
+        .gauge-body { position: absolute; top: 0; left: 0; width: 100%; height: 200%; border-radius: 50%; border: 12px solid #E5E7EB; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(-45deg); }
+        .gauge-fill { position: absolute; top: 0; left: 0; width: 100%; height: 200%; border-radius: 50%; border: 12px solid #0176D3; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(45deg); transition: transform 1s ease-out; }
+        .ios-status-bar { height: 44px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="ios-status-bar flex items-center justify-between px-6 sticky top-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-50">
+<span class="text-sm font-semibold">9:41</span>
+<div class="flex items-center space-x-1.5">
+<span class="material-icons-round text-lg">signal_cellular_alt</span>
+<span class="material-icons-round text-lg">wifi</span>
+<span class="material-icons-round text-lg">battery_full</span>
+</div>
+</div>
+<header class="px-5 py-4 flex items-center justify-between bg-card-light dark:bg-card-dark border-b border-slate-200 dark:border-slate-800">
+<div>
+<h1 class="text-xl font-bold tracking-tight">Sales Dashboard</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Wednesday, Oct 25</p>
+</div>
+<div class="flex space-x-3">
+<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800">
+<span class="material-icons-round text-slate-600 dark:text-slate-300">search</span>
+</button>
+<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800">
+<span class="material-icons-round text-slate-600 dark:text-slate-300">notifications</span>
+</button>
+</div>
+</header>
+<main class="p-5 space-y-6 pb-24">
+<section class="bg-card-light dark:bg-card-dark rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-semibold text-slate-700 dark:text-slate-200">Lead Scoring</h2>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded">Live</span>
+</div>
+<div class="flex items-center justify-center py-4">
+<div class="text-center">
+<div class="gauge-container mx-auto">
+<div class="gauge-body border-slate-200 dark:border-slate-700"></div>
+<div class="gauge-fill" style="transform: rotate(65deg);"></div>
+</div>
+<div class="mt-[-20px]">
+<span class="text-3xl font-bold">82%</span>
+<p class="text-xs font-medium text-slate-500 dark:text-slate-400">Data Reliability</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<div class="text-center">
+<p class="text-xs text-slate-500 dark:text-slate-400">Target</p>
+<p class="font-bold">₩ 480M</p>
+</div>
+<div class="text-center border-x border-slate-100 dark:border-slate-800">
+<p class="text-xs text-slate-500 dark:text-slate-400">Deals</p>
+<p class="font-bold">12</p>
+</div>
+<div class="text-center">
+<p class="text-xs text-slate-500 dark:text-slate-400">Success</p>
+<p class="font-bold text-green-500">64%</p>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-lg font-bold">Active Deals</h2>
+<button class="text-sm font-medium text-primary">View All</button>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-slate-900 dark:text-slate-50">Enterprise SaaS Expansion</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Acme Global Co.</p>
+</div>
+<span class="font-bold text-primary">₩ 180M</span>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-[10px] uppercase font-bold text-slate-400 tracking-widest">
+<span>Discovery</span>
+<span class="text-primary">Proposal</span>
+<span>Negotiation</span>
+<span>Closed</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full flex overflow-hidden">
+<div class="h-full bg-primary/40 w-1/4 border-r border-white dark:border-slate-900"></div>
+<div class="h-full bg-primary w-1/4 border-r border-white dark:border-slate-900"></div>
+<div class="h-full w-1/4"></div>
+<div class="h-full w-1/4"></div>
+</div>
+<p class="text-[11px] text-slate-500 dark:text-slate-400 italic">
+<span class="material-icons-round text-[12px] align-middle">schedule</span> 15 days in Proposal stage
+                    </p>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-slate-50 dark:border-slate-800/50">
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-icons-round text-lg">phone</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+<span class="material-icons-round text-lg">groups</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-icons-round text-lg">mail</span>
+</div>
+</div>
+<p class="text-xs text-slate-400">Updated 2h ago</p>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 space-y-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-slate-900 dark:text-slate-50">Cloud Migration Project</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Stark Industries</p>
+</div>
+<span class="font-bold text-primary">₩ 240M</span>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between text-[10px] uppercase font-bold text-slate-400 tracking-widest">
+<span>Discovery</span>
+<span>Proposal</span>
+<span class="text-primary">Negotiation</span>
+<span>Closed</span>
+</div>
+<div class="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full flex overflow-hidden">
+<div class="h-full bg-primary/40 w-1/4 border-r border-white dark:border-slate-900"></div>
+<div class="h-full bg-primary/40 w-1/4 border-r border-white dark:border-slate-900"></div>
+<div class="h-full bg-primary w-1/4 border-r border-white dark:border-slate-900"></div>
+<div class="h-full w-1/4"></div>
+</div>
+<p class="text-[11px] text-slate-500 dark:text-slate-400 italic">
+<span class="material-icons-round text-[12px] align-middle">schedule</span> 4 days in Negotiation
+                    </p>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-slate-50 dark:border-slate-800/50">
+<div class="flex space-x-2">
+<div class="w-8 h-8 rounded-full bg-orange-50 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+<span class="material-icons-round text-lg">description</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+<span class="material-icons-round text-lg">mail</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-icons-round text-lg">phone</span>
+</div>
+</div>
+<p class="text-xs text-slate-400">Updated 1d ago</p>
+</div>
+</div>
+</section>
+<section class="bg-card-light dark:bg-card-dark rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<h2 class="font-bold mb-4">Upcoming Meetings</h2>
+<div class="space-y-4">
+<div class="flex items-start space-x-3">
+<div class="bg-blue-100 dark:bg-blue-900/40 p-2 rounded-lg text-primary">
+<span class="material-icons-round">calendar_today</span>
+</div>
+<div class="flex-1 border-b border-slate-100 dark:border-slate-800 pb-3">
+<p class="text-sm font-semibold">Kickoff Call: Stark Industries</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Tomorrow, 10:00 AM • Seoul Office</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<div class="bg-purple-100 dark:bg-purple-900/40 p-2 rounded-lg text-purple-600 dark:text-purple-400">
+<span class="material-icons-round">groups</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold">Weekly Pipeline Review</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Oct 27, 2:00 PM • Zoom</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 bg-card-light dark:bg-card-dark border-t border-slate-200 dark:border-slate-800 px-6 py-3 flex justify-between items-center z-50">
+<button class="flex flex-col items-center space-y-1 text-primary">
+<span class="material-icons-round">dashboard</span>
+<span class="text-[10px] font-medium">Dashboard</span>
+</button>
+<button class="flex flex-col items-center space-y-1 text-slate-400">
+<span class="material-icons-round">analytics</span>
+<span class="text-[10px] font-medium">Pipeline</span>
+</button>
+<div class="relative -mt-10">
+<button class="bg-primary text-white p-4 rounded-full shadow-lg shadow-primary/30 flex items-center justify-center">
+<span class="material-icons-round">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center space-y-1 text-slate-400">
+<span class="material-icons-round">people_alt</span>
+<span class="text-[10px] font-medium">Deals</span>
+</button>
+<button class="flex flex-col items-center space-y-1 text-slate-400">
+<span class="material-icons-round">more_horiz</span>
+<span class="text-[10px] font-medium">More</span>
+</button>
+</nav>
+
+</body></html>

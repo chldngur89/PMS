@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>B&amp;W Sales Dashboard &amp; Kanban Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "background-light": "#ffffff",
+                        "background-alt": "#fcfcfc",
+                        "border-gray": "#e5e7eb",
+                        "text-secondary": "#6b7280",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Inter', sans-serif; }
+        .kanban-column { min-width: 280px; }
+        .gauge-container { position: relative; width: 180px; height: 90px; overflow: hidden; }
+        .gauge-body { position: absolute; top: 0; left: 0; width: 100%; height: 200%; border-radius: 50%; border: 20px solid #f3f4f6; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(-45deg); }
+        .gauge-fill { position: absolute; top: 0; left: 0; width: 100%; height: 200%; border-radius: 50%; border: 20px solid #000000; border-bottom-color: transparent; border-left-color: transparent; transform: rotate(45deg); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #000000; }
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #333333; }.card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        input:focus { outline: none !important; border-color: #000000 !important; ring: 0 !important; }
+    </style>
+</head>
+<body class="bg-white font-display text-black h-screen flex flex-col overflow-hidden">
+<header class="h-14 bg-black border-b border-black flex items-center justify-between px-6 z-10 text-white">
+<div class="flex items-center space-x-4">
+<div class="bg-white p-1 rounded-sm">
+<span class="material-icons text-black text-xl">insights</span>
+</div>
+<h1 class="font-bold text-lg tracking-tight uppercase italic">Vault <span class="text-gray-400 font-light">CRM</span></h1>
+</div>
+<div class="flex-1 max-w-xl mx-8">
+<div class="relative group">
+<span class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-zinc-900 border-none rounded-none text-sm text-white placeholder-gray-500 focus:ring-0 transition-all" placeholder="Search deals, contacts, or reports..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<button class="flex items-center space-x-1 px-4 py-1.5 bg-white text-black text-sm font-bold rounded-none hover:bg-gray-200 transition-colors uppercase tracking-wider">
+<span class="material-icons text-sm">add</span>
+<span>New Deal</span>
+</button>
+<div class="h-6 w-px bg-zinc-700 mx-2"></div>
+<button class="material-icons text-gray-400 hover:text-white transition-colors">notifications</button>
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 rounded-none overflow-hidden border border-zinc-700 grayscale">
+<img class="w-full h-full object-cover" data-alt="Portrait of a male sales professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhgrS88xUdxpOJl98wc0S8RT2SQG5hEW5NSxQZTiOCJW1gzdjMsH418r7rWOINSGnV7FTYq6v8c7e8kcGNHMz-cgsnX464aAUHEwSYNy2XpEzJpU5I_RgTkWM98eqC58Wdb6t3Krs1J_g0Yal3eYCWjigXfadUzMt5rsyhEM1h79N8uqtweLKZiPpVchXHUisgT6iCAii7D_aEdSXgHZpNvPO0HE6Cmanp7awNxDgGjeKgnPwAh8j9glJFI6CodyasLqgEEbxTKZI"/>
+</div>
+<span class="text-sm font-medium hidden lg:block uppercase tracking-tight">A. Miller</span>
+</div>
+</div>
+</header>
+<main class="flex-1 flex overflow-hidden">
+<section class="flex-grow w-[60%] flex flex-col border-r border-gray-200 overflow-hidden">
+<div class="p-4 border-b border-gray-200 flex items-center justify-between bg-white">
+<div class="flex items-center space-x-4">
+<h2 class="font-bold text-black uppercase tracking-widest text-sm">Pipeline: Corporate Q4</h2>
+<div class="flex items-center text-[10px] text-gray-400 border border-gray-200 px-2 py-0.5 font-bold">
+<span class="material-icons text-[12px] mr-1">history</span>
+                    UPDATED 5M AGO
+                </div>
+</div>
+<div class="flex space-x-1">
+<button class="p-1 text-black hover:bg-black hover:text-white transition-colors border border-transparent">
+<span class="material-icons text-lg">filter_list</span>
+</button>
+<button class="p-1 text-black hover:bg-black hover:text-white transition-colors border border-transparent">
+<span class="material-icons text-lg">sort</span>
+</button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto p-6 space-x-6 flex custom-scrollbar bg-gray-50">
+<div class="kanban-column flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+<div class="flex items-center">
+<span class="text-xs font-black uppercase tracking-widest">Lead</span>
+<span class="ml-2 px-1.5 py-0.5 bg-black text-white text-[10px] font-bold">12</span>
+</div>
+<span class="text-xs font-bold text-black">$240K</span>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 border border-gray-300 hover:border-black transition-all cursor-pointer card-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-black text-black border border-black px-1">TECH-104</span>
+<div class="w-2 h-2 rounded-none bg-black"></div>
+</div>
+<h3 class="text-sm font-bold mb-1 uppercase">Global Connect SaaS</h3>
+<p class="text-lg font-black text-black mb-3">$45,000</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 border border-black flex items-center justify-center text-[10px] font-bold">JD</div>
+<span class="text-[10px] text-gray-500 uppercase font-black tracking-tighter">HOT LEAD</span>
+</div>
+</div>
+<div class="bg-white p-4 border border-gray-300 hover:border-black transition-all cursor-pointer card-shadow">
+<h3 class="text-sm font-bold mb-1 uppercase">Apex Retail Solutions</h3>
+<p class="text-lg font-black text-black mb-3">$12,800</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 border border-gray-300 overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="Avatar of Sarah Williams" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI7r7ciEUJqTvjUJKxxVg6jemOfHlBNIsYgya6aA-eeRa2W2-G26AQMB5O6s11Azn_RnbiVasXPenUTbVH-3PEBSyhJdzqR0D2PktG4DVmxrGUfN6cSJ2XO-zdDcKrnE-yXOXNE0UVxVKJXx243EIxaATto7RN5UIF3_Uvem07ngGxGu2RhJ5LF7aLpLYIOhrn2R5W_wSjvwTTWihqM2Y5DGg_uEfSCERNEB4uO2n6sDf53Sz_Lisfi7TjjyQ3UOkBYX-eWoipvdY"/>
+</div>
+<span class="text-[10px] text-gray-400 uppercase font-bold">14d inactive</span>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column flex flex-col h-full border-l border-gray-200 pl-6">
+<div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+<div class="flex items-center">
+<span class="text-xs font-black uppercase tracking-widest">Discovery</span>
+<span class="ml-2 px-1.5 py-0.5 bg-gray-200 text-black text-[10px] font-bold">5</span>
+</div>
+<span class="text-xs font-bold text-black">$1.2M</span>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 border-l-4 border-l-black border-t border-r border-b border-gray-300 card-shadow">
+<h3 class="text-sm font-bold mb-1 uppercase">NorthStar Infra</h3>
+<p class="text-lg font-black text-black mb-3">$890,000</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 bg-black text-white flex items-center justify-center text-[10px] font-bold uppercase">AM</div>
+<span class="material-icons text-sm">priority_high</span>
+</div>
+</div>
+<div class="bg-white p-4 border border-gray-300 card-shadow">
+<h3 class="text-sm font-bold mb-1 uppercase">EcoSystem App</h3>
+<p class="text-lg font-black text-black mb-3">$32,000</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 border border-gray-300 flex items-center justify-center text-[10px] font-bold">TR</div>
+<span class="text-[10px] text-gray-400 font-bold uppercase">Scheduled 2pm</span>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column flex flex-col h-full border-l border-gray-200 pl-6">
+<div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+<div class="flex items-center">
+<span class="text-xs font-black uppercase tracking-widest">Proposal</span>
+<span class="ml-2 px-1.5 py-0.5 bg-gray-200 text-black text-[10px] font-bold">3</span>
+</div>
+<span class="text-xs font-bold text-black">$645K</span>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 border border-gray-300 card-shadow">
+<h3 class="text-sm font-bold mb-1 uppercase">FinTech Core</h3>
+<p class="text-lg font-black text-black mb-3">$520,000</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 border border-gray-300 grayscale">
+<img class="w-full h-full object-cover" data-alt="Avatar of Emily Chen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjtsEdMzbxMmaRg59H6DZRPl1pt1WAH57Tt1KN-H7sWG_bgDLw4YmKh_Yokdp9Tl0Lgjw48-CBUA48WU-6H3S7C9UOvJk6DilfaloPmdZqwevmgaV0MjvbO_c_ioqiYGF8APKDbXOh2MT-dw4DOOdhW28LllnQpQjyvyQe_gZ5JQWYMRW0sZ6xSotWByKifpE71bWK5HKaYkMCYeFmmoX97FKXa7ASfOWToVZQd7TnWj8h8pjUvNI3lmFjoChnDxC6ohyWqxvIexI"/>
+</div>
+<div class="px-2 py-0.5 bg-black text-white text-[9px] font-bold uppercase tracking-tighter">Review</div>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column flex flex-col h-full border-l border-gray-200 pl-6">
+<div class="flex items-center justify-between mb-4 border-b-2 border-black pb-2">
+<div class="flex items-center">
+<span class="text-xs font-black uppercase tracking-widest">Negotiation</span>
+<span class="ml-2 px-1.5 py-0.5 bg-gray-200 text-black text-[10px] font-bold">2</span>
+</div>
+<span class="text-xs font-bold text-black">$1.8M</span>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 border border-gray-300 card-shadow">
+<h3 class="text-sm font-bold mb-1 uppercase">Titan Logistics</h3>
+<p class="text-lg font-black text-black mb-3">$1.5M</p>
+<div class="flex items-center justify-between border-t border-gray-100 pt-3">
+<div class="w-6 h-6 bg-gray-100 flex items-center justify-center text-[10px] font-bold">MK</div>
+<div class="flex items-center space-x-1 text-black">
+<span class="material-icons text-[14px]">verified</span>
+<span class="text-[10px] font-black italic">95%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<aside class="w-[40%] bg-white flex flex-col overflow-y-auto custom-scrollbar border-l border-gray-200">
+<div class="p-8">
+<div class="flex items-center justify-between mb-10 border-b border-black pb-4">
+<h2 class="font-black text-xl uppercase tracking-tighter italic">Intelligence</h2>
+<select class="text-[10px] font-bold uppercase tracking-widest border-2 border-black bg-white rounded-none focus:ring-0 focus:border-black cursor-pointer">
+<option>This Quarter</option>
+<option>This Month</option>
+<option>Year to Date</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-px bg-gray-200 border border-gray-200 mb-10">
+<div class="p-6 bg-white">
+<span class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Total Value</span>
+<div class="text-2xl font-black mt-2 tracking-tighter">$4,127,800</div>
+<div class="text-[10px] text-black font-black mt-2 flex items-center">
+<span class="material-icons text-[14px] mr-1">trending_up</span>
+                        +12.4% PERFORMANCE
+                    </div>
+</div>
+<div class="p-6 bg-white">
+<span class="text-[10px] text-gray-400 font-black uppercase tracking-widest">Avg Deal</span>
+<div class="text-2xl font-black mt-2 tracking-tighter">$187,627</div>
+<div class="text-[10px] text-gray-500 font-bold mt-2 uppercase">22 ACTIVE DEALS</div>
+</div>
+</div>
+<div class="mb-12 bg-white p-8 border border-black flex flex-col items-center">
+<h3 class="text-xs font-black text-black uppercase tracking-widest mb-8">Pipeline Health Score</h3>
+<div class="gauge-container mb-6">
+<div class="gauge-body"></div>
+<div class="gauge-fill" style="transform: rotate(105deg);"></div>
+<div class="absolute inset-0 flex items-end justify-center pb-2">
+<span class="text-4xl font-black tracking-tighter">84</span>
+</div>
+</div>
+<p class="text-[11px] text-center text-gray-600 font-medium px-4">
+                    PIPELINE VELOCITY IS <span class="text-black font-black underline">OPTIMAL</span>. CURRENT LEAD FLOW EXCEEDS QUARTERLY TARGETS BY 14%.
+                </p>
+</div>
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6 border-b border-gray-100 pb-2">
+<h3 class="text-xs font-black uppercase tracking-widest">Revenue Forecast</h3>
+<div class="flex items-center space-x-4 text-[9px] font-bold">
+<div class="flex items-center"><span class="w-2 h-2 bg-black mr-1"></span> ACTUAL</div>
+<div class="flex items-center"><span class="w-2 h-2 bg-gray-200 mr-1"></span> TARGET</div>
+</div>
+</div>
+<div class="h-44 flex items-end justify-between px-2 pt-4 border-b-2 border-black">
+<div class="w-12 group relative">
+<div class="h-24 w-full bg-gray-100 absolute bottom-0"></div>
+<div class="h-16 w-full bg-gray-400 absolute bottom-0"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-gray-400 font-black">JUL</span>
+</div>
+<div class="w-12 group relative">
+<div class="h-28 w-full bg-gray-100 absolute bottom-0"></div>
+<div class="h-32 w-full bg-black absolute bottom-0"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-gray-400 font-black">AUG</span>
+</div>
+<div class="w-12 group relative">
+<div class="h-24 w-full bg-gray-100 absolute bottom-0"></div>
+<div class="h-20 w-full bg-gray-400 absolute bottom-0"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-gray-400 font-black">SEP</span>
+</div>
+<div class="w-12 group relative">
+<div class="h-32 w-full bg-gray-100 absolute bottom-0"></div>
+<div class="h-28 w-full bg-black absolute bottom-0"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-gray-400 font-black">OCT</span>
+</div>
+<div class="w-12 group relative">
+<div class="h-36 w-full bg-gray-100 absolute bottom-0"></div>
+<div class="h-44 w-full bg-black absolute bottom-0"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] text-black font-black underline">NOV</span>
+</div>
+</div>
+</div>
+<div class="mb-8">
+<h3 class="text-xs font-black uppercase tracking-widest mb-6">Conversion metrics</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-[10px] font-black uppercase mb-1.5">
+<span>Lead to Discovery</span>
+<span>62%</span>
+</div>
+<div class="w-full h-1 bg-gray-100">
+<div class="h-full bg-black" style="width: 62%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-black uppercase mb-1.5">
+<span>Discovery to Proposal</span>
+<span>38%</span>
+</div>
+<div class="w-full h-1 bg-gray-100">
+<div class="h-full bg-gray-500" style="width: 38%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-black uppercase mb-1.5">
+<span>Proposal to Closed</span>
+<span>24%</span>
+</div>
+<div class="w-full h-1 bg-gray-100">
+<div class="h-full bg-black" style="width: 24%;"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto p-8 border-t border-gray-100">
+<div class="bg-black text-white p-6 border-b-4 border-gray-600">
+<div class="flex items-start space-x-3">
+<span class="material-icons text-white">bolt</span>
+<div>
+<h4 class="text-[10px] font-black uppercase tracking-widest mb-1">AI PROJECTION</h4>
+<p class="text-xs text-gray-400 font-medium leading-relaxed">System predicts 115% quota achievement based on historical Q4 velocity.</p>
+<button class="mt-4 text-[10px] font-black flex items-center hover:bg-white hover:text-black px-2 py-1 border border-white transition-all">
+                            DETAILED ANALYSIS <span class="material-icons text-[14px] ml-1">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<footer class="h-10 bg-white border-t border-black flex items-center px-6 text-[9px] font-black text-black tracking-widest uppercase">
+<div class="flex space-x-8">
+<div class="flex items-center"><span class="w-2 h-2 bg-black mr-2"></span> SYSTEM ACTIVE</div>
+<div>IN FLIGHT: <span class="border-b border-black">22</span></div>
+<div>CYCLE: <span class="border-b border-black">42 DAYS</span></div>
+</div>
+<div class="ml-auto flex items-center space-x-6">
+<button class="hover:underline">SUPPORT</button>
+<button class="hover:underline">DOCS</button>
+<div class="flex items-center space-x-1 opacity-50">
+<span class="material-icons text-sm">schedule</span>
+<span>14:02:11</span>
+</div>
+</div>
+</footer>
+
+</body></html>

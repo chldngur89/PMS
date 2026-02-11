@@ -1,0 +1,1179 @@
+.salesdash-root {
+  height: 100%;
+  background: #fff;
+  color: #000;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  position: relative;
+}
+
+.salesdash-desktop {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.salesdash-topbar {
+  height: 56px;
+  background: #000;
+  border-bottom: 1px solid #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.salesdash-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 170px;
+}
+
+.salesdash-brand-icon {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-brand-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.salesdash-brand-title span {
+  color: #969ba3;
+  font-weight: 400;
+}
+
+.salesdash-search-wrap {
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+}
+
+.salesdash-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #8b909a;
+}
+
+.salesdash-search {
+  width: 100%;
+  height: 32px;
+  border: 1px solid #111318;
+  background: #111318;
+  color: #fff;
+  font-size: 13px;
+  padding: 0 10px 0 30px;
+  outline: none;
+}
+
+.salesdash-search::placeholder {
+  color: #6b717d;
+}
+
+.salesdash-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.salesdash-newdeal-btn {
+  height: 32px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: #000;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.salesdash-top-divider {
+  width: 1px;
+  height: 22px;
+  background: #2d3038;
+}
+
+.salesdash-icon-btn {
+  border: 0;
+  background: transparent;
+  color: #9ca3af;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.salesdash-icon-btn:hover {
+  color: #fff;
+}
+
+.salesdash-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.salesdash-user-avatar {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #2d3038;
+  background: #111318;
+  color: #d1d5db;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-main {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.salesdash-board {
+  width: 60%;
+  min-width: 0;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.salesdash-board-header {
+  height: 56px;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.salesdash-board-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.salesdash-board-title h2 {
+  font-size: 21px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.salesdash-update-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e6e7eb;
+  padding: 2px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #8d93a0;
+}
+
+.salesdash-board-tools {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.salesdash-board-tools button {
+  width: 24px;
+  height: 24px;
+  border: 1px solid transparent;
+  background: #fff;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.salesdash-board-tools button:hover {
+  background: #111;
+  color: #fff;
+}
+
+.salesdash-board-tools button.is-active {
+  background: #111;
+  color: #fff;
+}
+
+.salesdash-filter-panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 10px 16px;
+  background: #fff;
+}
+
+.salesdash-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.salesdash-filter-field label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #707888;
+  letter-spacing: 0.03em;
+}
+
+.salesdash-filter-field select {
+  height: 30px;
+  border: 1px solid #d2d8e0;
+  background: #fff;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.salesdash-filter-reset {
+  height: 30px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  padding: 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.salesdash-inline-error {
+  border-bottom: 1px solid #f3d1d1;
+  background: #fff7f7;
+  color: #b42318;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+}
+
+.salesdash-columns {
+  background: #f8fafc;
+  border-bottom: 1px solid #d9dde4;
+  min-height: 0;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(220px, 1fr));
+  gap: 0;
+  overflow-x: auto;
+}
+
+.salesdash-column {
+  padding: 16px 16px 0;
+  border-right: 1px solid #e5e7eb;
+  min-height: 0;
+}
+
+.salesdash-column.is-success {
+  background: #eef6ff;
+}
+
+.salesdash-column.is-failure {
+  background: #fff1f1;
+}
+
+.salesdash-column:last-child {
+  border-right: 0;
+}
+
+.salesdash-column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #000;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.salesdash-column.is-success .salesdash-column-head {
+  border-bottom-color: #3b82f6;
+}
+
+.salesdash-column.is-success .salesdash-column-label b {
+  background: #3b82f6;
+}
+
+.salesdash-column.is-failure .salesdash-column-head {
+  border-bottom-color: #ef4444;
+}
+
+.salesdash-column.is-failure .salesdash-column-label b {
+  background: #ef4444;
+}
+
+.salesdash-column-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.salesdash-column-label span {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.salesdash-column-label b {
+  background: #000;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 4px;
+  font-weight: 800;
+}
+
+.salesdash-column-head strong {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.salesdash-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 18px;
+}
+
+.salesdash-card {
+  border: 1px solid #d2d7df;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  min-height: 108px;
+}
+
+.salesdash-column.is-success .salesdash-card {
+  border-color: #b8d6ff;
+  background: #f6faff;
+}
+
+.salesdash-column.is-failure .salesdash-card {
+  border-color: #f1b4b4;
+  background: #fff8f8;
+}
+
+.salesdash-card.is-risk {
+  border-left: 4px solid #000;
+}
+
+.salesdash-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.salesdash-code {
+  border: 1px solid #000;
+  padding: 1px 4px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.salesdash-dot {
+  width: 6px;
+  height: 6px;
+  background: #000;
+  display: inline-block;
+}
+
+.salesdash-card h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin: 0;
+}
+
+.salesdash-card p {
+  font-size: 31px;
+  margin: 4px 0 10px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.salesdash-card-bottom {
+  border-top: 1px solid #edf0f4;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.salesdash-owner {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.salesdash-card-bottom span {
+  font-size: 9px;
+  font-weight: 800;
+  color: #7b8190;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.salesdash-card-actions {
+  margin-top: 8px;
+  border-top: 1px solid #edf0f4;
+  padding-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 6px;
+}
+
+.salesdash-card-actions button {
+  height: 28px;
+  border: 1px solid #d0d6de;
+  background: #fff;
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.salesdash-card-actions button.edit {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+.salesdash-card-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.salesdash-card-outcome-actions {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.salesdash-card-outcome-actions button {
+  height: 28px;
+  border: 1px solid #d0d6de;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.salesdash-card-outcome-actions button.success {
+  border-color: #a8c9ff;
+  background: #e7f1ff;
+  color: #1d4ed8;
+}
+
+.salesdash-card-outcome-actions button.failure {
+  border-color: #f4b4b4;
+  background: #ffeaea;
+  color: #b91c1c;
+}
+
+.salesdash-card-outcome-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.salesdash-empty {
+  border: 1px dashed #d4d8df;
+  background: #fff;
+  color: #a2a8b3;
+  font-size: 12px;
+  font-style: italic;
+  padding: 10px;
+}
+
+.salesdash-intel {
+  width: 40%;
+  border-left: 1px solid #e5e7eb;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.salesdash-intel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.salesdash-intel-header h2 {
+  font-size: 31px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-style: italic;
+  font-weight: 900;
+}
+
+.salesdash-intel-header select {
+  height: 32px;
+  border: 2px solid #000;
+  padding: 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.salesdash-metrics {
+  border: 1px solid #dbe0e6;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: #dbe0e6;
+  margin-bottom: 16px;
+}
+
+.salesdash-metrics > div {
+  background: #fff;
+  padding: 14px;
+}
+
+.salesdash-metrics span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #8a90a0;
+  font-weight: 800;
+}
+
+.salesdash-metrics strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 45px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.salesdash-metrics small {
+  margin-top: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.salesdash-health {
+  border: 1px solid #000;
+  padding: 14px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.salesdash-health h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.salesdash-gauge {
+  position: relative;
+  margin: 0 auto 8px;
+  width: 160px;
+  height: 90px;
+}
+
+.salesdash-gauge svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.salesdash-gauge .track {
+  fill: none;
+  stroke: #eceef1;
+  stroke-width: 12;
+  stroke-linecap: butt;
+}
+
+.salesdash-gauge .fill {
+  fill: none;
+  stroke: #000;
+  stroke-width: 12;
+  stroke-linecap: butt;
+  stroke-dashoffset: 0;
+}
+
+.salesdash-gauge strong {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  text-align: center;
+  font-size: 43px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.salesdash-health p {
+  margin: 0;
+  font-size: 11px;
+  color: #5e6471;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.salesdash-health p b {
+  color: #000;
+  text-decoration: underline;
+}
+
+.salesdash-forecast {
+  margin-bottom: 16px;
+}
+
+.salesdash-forecast-head {
+  border-bottom: 1px solid #edf0f4;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.salesdash-forecast-head h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  margin: 0;
+}
+
+.salesdash-forecast-head div {
+  display: inline-flex;
+  gap: 10px;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.salesdash-forecast-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.salesdash-forecast-head i {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+
+.salesdash-forecast-head i.actual {
+  background: #000;
+}
+
+.salesdash-forecast-head i.target {
+  background: #dfe3ea;
+}
+
+.salesdash-bars {
+  height: 145px;
+  border-bottom: 2px solid #000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.salesdash-bar {
+  width: 42px;
+  height: 100%;
+  position: relative;
+}
+
+.salesdash-bar .target,
+.salesdash-bar .actual {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+.salesdash-bar .target {
+  background: #e3e7ed;
+}
+
+.salesdash-bar .actual {
+  background: #000;
+}
+
+.salesdash-bar label {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  color: #9ca3af;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.salesdash-conversion h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.salesdash-conversion-item {
+  margin-bottom: 8px;
+}
+
+.salesdash-conversion-item > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.salesdash-conversion-item p {
+  margin: 3px 0 0;
+  height: 4px;
+  background: #eef1f5;
+}
+
+.salesdash-conversion-item p i {
+  display: block;
+  height: 100%;
+  background: #000;
+}
+
+.salesdash-footer {
+  height: 38px;
+  border-top: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.salesdash-footer > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.salesdash-footer i {
+  width: 8px;
+  height: 8px;
+  background: #000;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.salesdash-footer b {
+  border-bottom: 1px solid #000;
+}
+
+.salesdash-footer button {
+  border: 0;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.salesdash-footer > div:last-child span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #8e95a4;
+}
+
+.salesdash-mobile {
+  display: none;
+  height: 100%;
+  overflow: auto;
+  background: #f7f8fa;
+  padding: 14px;
+}
+
+.salesdash-mobile header {
+  background: #000;
+  color: #fff;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.salesdash-mobile header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.salesdash-mobile header button {
+  border: 1px solid #fff;
+  background: #fff;
+  color: #000;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-mobile section {
+  border: 1px solid #d8dce3;
+  background: #fff;
+  padding: 12px;
+}
+
+.salesdash-mobile section h2 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 800;
+}
+
+.salesdash-mobile section article {
+  border: 1px solid #d8dce3;
+  margin-bottom: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.salesdash-mobile section article:last-child {
+  margin-bottom: 0;
+}
+
+.salesdash-mobile section h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.salesdash-mobile section span {
+  font-size: 10px;
+  color: #818794;
+  font-weight: 700;
+}
+
+.salesdash-mobile section strong {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.salesdash-mobile-ai {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.salesdash-modal-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.salesdash-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(760px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  border: 1px solid #0f1012;
+  background: #fff;
+  padding: 16px;
+}
+
+.salesdash-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid #e6e8ee;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+
+.salesdash-modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.salesdash-modal-header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #6e7584;
+}
+
+.salesdash-modal-header button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #d6dae2;
+  background: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.salesdash-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.salesdash-modal-field.full {
+  grid-column: span 2;
+}
+
+.salesdash-modal-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #4f5767;
+}
+
+.salesdash-modal-field input,
+.salesdash-modal-field select,
+.salesdash-modal-field textarea {
+  border: 1px solid #d3d9e2;
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  padding: 8px;
+  outline: none;
+}
+
+.salesdash-modal-field input:focus,
+.salesdash-modal-field select:focus,
+.salesdash-modal-field textarea:focus {
+  border-color: #000;
+}
+
+.salesdash-modal-error {
+  margin: 10px 0 0;
+  color: #c02626;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.salesdash-modal-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.salesdash-modal-actions button {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid #111;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.salesdash-modal-actions button.cancel {
+  background: #fff;
+  color: #111;
+  border-color: #d0d5dd;
+}
+
+.salesdash-modal-actions button.save {
+  background: #111;
+  color: #fff;
+}
+
+.salesdash-modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.salesdash-outcome-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 140;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.salesdash-outcome-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.salesdash-outcome-panel {
+  position: relative;
+  z-index: 1;
+  width: min(420px, calc(100% - 24px));
+  border: 1px solid #0f1012;
+  background: #fff;
+  padding: 16px;
+}
+
+.salesdash-outcome-panel h4 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.salesdash-outcome-panel p {
+  margin: 6px 0 12px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.salesdash-outcome-target {
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.salesdash-outcome-target span {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.salesdash-outcome-target strong {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.salesdash-outcome-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.salesdash-outcome-actions button {
+  height: 34px;
+  border: 1px solid #d0d6de;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.salesdash-outcome-actions button.success {
+  border-color: #9dc2ff;
+  background: #e7f1ff;
+  color: #1d4ed8;
+}
+
+.salesdash-outcome-actions button.failure {
+  border-color: #f2b4b4;
+  background: #ffecec;
+  color: #b91c1c;
+}
+
+.salesdash-outcome-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1279px) {
+  .salesdash-desktop {
+    display: none;
+  }
+
+  .salesdash-mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 860px) {
+  .salesdash-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .salesdash-modal-field.full {
+    grid-column: span 1;
+  }
+}

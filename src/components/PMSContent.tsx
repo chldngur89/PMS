@@ -6,17 +6,20 @@ import { DayView } from './views/DayView';
 import { KanbanView } from './views/KanbanView';
 import { TableView } from './views/TableView';
 import { GanttView } from './views/GanttView';
+import { SalesDashboardView } from './views/SalesDashboardView';
 
 interface PMSContentProps {
   language: Language;
-  view: 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt';
+  view: 'sales' | 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt';
   tasks: Task[];
   onDeleteTask: (taskId: string) => void;
-  onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => void;
+  onUpdateTask: (taskId: string, updatedTask: Partial<Task>) => Promise<boolean> | boolean;
+  onCreateTask: (task: Omit<Task, 'id'>) => Promise<boolean> | boolean;
   settings: PMSSettings;
   viewDate: Date;
   onViewDateChange: (date: Date) => void;
   members: TeamMember[];
+  categories: Array<{ name: string; color: string }>;
 }
 
 export function PMSContent({
@@ -25,10 +28,12 @@ export function PMSContent({
   tasks,
   onDeleteTask,
   onUpdateTask,
+  onCreateTask,
   settings,
   viewDate,
   onViewDateChange,
   members,
+  categories,
 }: PMSContentProps) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -88,6 +93,16 @@ export function PMSContent({
           language={language}
           tasks={tasks}
           onDeleteTask={onDeleteTask}
+          onUpdateTask={onUpdateTask}
+        />
+      )}
+      {view === 'sales' && (
+        <SalesDashboardView
+          language={language}
+          tasks={tasks}
+          members={members}
+          categories={categories}
+          onCreateTask={onCreateTask}
           onUpdateTask={onUpdateTask}
         />
       )}

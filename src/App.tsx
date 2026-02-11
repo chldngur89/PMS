@@ -6,7 +6,7 @@ import PMSApp from './PMSApp';
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<PMSApp defaultView="month" />} />
+      <Route path="/" element={<PMSApp defaultView="sales" />} />
       <Route path="/pms/*" element={<PMSApp />} />
       <Route path="/gantt" element={<PMSApp defaultView="gantt" />} />
       <Route path="/portal" element={<Home />} />

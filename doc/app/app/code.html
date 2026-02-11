@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deal Activity &amp; Journey Timeline</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              "background-light": "#F8F9FA",
+              "background-dark": "#0A0A0A",
+              "card-light": "#FFFFFF",
+              "card-dark": "#171717",
+              "border-light": "#E5E7EB",
+              "border-dark": "#262626",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "12px",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ios-blur {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: currentColor;
+            opacity: 0.1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<div class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 ios-blur border-b border-border-light dark:border-border-dark">
+<div class="flex items-center justify-between px-6 py-4">
+<button class="p-2 -ml-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors">
+<span class="material-icons-outlined text-2xl">arrow_back_ios_new</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight">Deal Activity</h1>
+<button class="p-2 -mr-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors">
+<span class="material-icons-outlined text-2xl">more_horiz</span>
+</button>
+</div>
+</div>
+<main class="max-w-md mx-auto px-4 pt-6 space-y-6">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary text-white text-[10px] font-bold uppercase tracking-wider">High Value</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">DEAL-2024-082</span>
+</div>
+<h2 class="text-2xl font-extrabold leading-tight">Global Expansion Phase 1</h2>
+<p class="text-sm text-slate-500 dark:text-slate-400">Account: Enterprise Solutions Inc.</p>
+</div>
+<section class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark rounded-2xl p-4 shadow-sm">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Deal Journey</h3>
+<div class="relative flex justify-between items-start">
+<div class="absolute top-[14px] left-0 right-0 h-1 bg-slate-100 dark:bg-border-dark rounded-full"></div>
+<div class="absolute top-[14px] left-0 w-2/3 h-1 bg-primary rounded-full"></div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-icons-outlined text-sm">check</span>
+</div>
+<div class="text-center">
+<p class="text-[10px] font-bold leading-none">Discovery</p>
+<p class="text-[9px] text-slate-400 mt-1">12 days</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
+<span class="material-icons-outlined text-sm">check</span>
+</div>
+<div class="text-center">
+<p class="text-[10px] font-bold leading-none">Proposal</p>
+<p class="text-[9px] text-slate-400 mt-1">8 days</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white shadow-lg ring-4 ring-primary/20">
+<span class="material-icons-outlined text-sm">handshake</span>
+</div>
+<div class="text-center">
+<p class="text-[10px] font-bold leading-none">Negotiation</p>
+<p class="text-[9px] text-primary font-medium mt-1">Active (4d)</p>
+</div>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2 w-1/4">
+<div class="w-7 h-7 rounded-full bg-slate-100 dark:bg-border-dark flex items-center justify-center text-slate-400">
+<span class="material-icons-outlined text-sm">lock</span>
+</div>
+<div class="text-center">
+<p class="text-[10px] font-bold leading-none text-slate-400">Closing</p>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold">Activity Feed</h3>
+<button class="text-sm font-semibold text-slate-500 hover:text-primary transition-colors flex items-center gap-1">
+                    Filter <span class="material-icons-outlined text-sm">filter_list</span>
+</button>
+</div>
+<div class="relative timeline-line text-slate-200 dark:text-border-dark">
+<div class="relative pl-12 pb-8">
+<div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 z-10">
+<span class="material-icons-outlined text-xl">groups</span>
+</div>
+<div class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-tight">On-site Meeting</span>
+<span class="text-[10px] text-slate-400">2h ago</span>
+</div>
+<h4 class="font-bold text-sm mb-1 text-slate-900 dark:text-white leading-snug">Contract Terms Review with Sarah J.</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Discussed specific clauses regarding service level agreements and data privacy compliance.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-border-dark text-[10px] font-semibold rounded-full text-slate-600 dark:text-slate-300">#legal</span>
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-border-dark text-[10px] font-semibold rounded-full text-slate-600 dark:text-slate-300">#contract</span>
+</div>
+</div>
+</div>
+<div class="relative pl-12 pb-8">
+<div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-800 flex items-center justify-center text-amber-600 dark:text-amber-400 z-10">
+<span class="material-icons-outlined text-xl">alternate_email</span>
+</div>
+<div class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-4 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-tight">Email Sent</span>
+<span class="text-[10px] text-slate-400">Yesterday, 4:15 PM</span>
+</div>
+<h4 class="font-bold text-sm mb-1 text-slate-900 dark:text-white leading-snug">RE: Revised Pricing Proposal</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-3">Sent the updated pricing sheet with the 15% multi-year discount included as requested.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 bg-slate-100 dark:bg-border-dark text-[10px] font-semibold rounded-full text-slate-600 dark:text-slate-300">#pricing</span>
+</div>
+</div>
+</div>
+<div class="relative pl-12 pb-8">
+<div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 z-10">
+<span class="material-icons-outlined text-xl">description</span>
+</div>
+<div class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-4 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-tight">Document Uploaded</span>
+<span class="text-[10px] text-slate-400">Sep 22, 11:30 AM</span>
+</div>
+<h4 class="font-bold text-sm mb-1 text-slate-900 dark:text-white leading-snug">Technical Specifications V2.pdf</h4>
+<p class="text-sm text-slate-500 italic mb-3">Added by Technical Sales Engineer</p>
+<button class="flex items-center gap-2 w-full py-2 px-3 bg-slate-50 dark:bg-white/5 rounded-lg border border-slate-100 dark:border-border-dark hover:bg-slate-100 transition-colors">
+<span class="material-icons-outlined text-lg text-slate-400">cloud_download</span>
+<span class="text-xs font-bold text-slate-700 dark:text-slate-300">Download Preview (2.4 MB)</span>
+</button>
+</div>
+</div>
+<div class="relative pl-12">
+<div class="absolute left-0 top-0 w-10 h-10 rounded-full bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400 z-10">
+<span class="material-icons-outlined text-xl">phone_in_talk</span>
+</div>
+<div class="bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark p-4 rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-tight">Outbound Call</span>
+<span class="text-[10px] text-slate-400">Sep 21, 09:15 AM</span>
+</div>
+<h4 class="font-bold text-sm mb-1 text-slate-900 dark:text-white leading-snug">Follow-up Call: Procurement</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-2">Left a voicemail for David in procurement regarding the vendor registration form.</p>
+<div class="text-[10px] text-slate-400 flex items-center gap-1">
+<span class="material-icons-outlined text-[10px]">timer</span> Duration: 0:45s
+                        </div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-icons-outlined text-2xl">add</span>
+</button>
+<nav class="fixed bottom-0 left-0 right-0 bg-card-light/90 dark:bg-card-dark/90 ios-blur border-t border-border-light dark:border-border-dark px-6 py-3 flex items-center justify-between z-50">
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-icons-outlined text-2xl">dashboard</span>
+<span class="text-[10px] font-bold">Home</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-icons-outlined text-2xl">account_tree</span>
+<span class="text-[10px] font-bold">Deals</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-icons-outlined text-2xl">calendar_today</span>
+<span class="text-[10px] font-bold">Agenda</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-icons-outlined text-2xl">person_outline</span>
+<span class="text-[10px] font-bold">Me</span>
+</div>
+</nav>
+<div class="fixed top-4 right-4 z-[60] flex items-center gap-2">
+<button class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-border-light dark:border-border-dark flex items-center justify-center shadow-lg" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons-outlined text-xl dark:hidden">dark_mode</span>
+<span class="material-icons-outlined text-xl hidden dark:block">light_mode</span>
+</button>
+</div>
+
+</body></html>

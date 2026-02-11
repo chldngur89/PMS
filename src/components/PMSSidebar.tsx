@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Search, Settings, Plus, BarChart3, FileText, Target, Clock, Users, FolderKanban, GanttChart, Languages, Home, Radio, User } from 'lucide-react';
+import { Calendar, Search, Settings, Plus, BarChart3, FileText, Target, Clock, Users, FolderKanban, GanttChart, Languages, Home, Radio, User, PieChart } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Switch } from './ui/switch';
@@ -20,8 +20,8 @@ import {
 interface PMSSidebarProps {
   language: Language;
   onLanguageChange: (lang: Language) => void;
-  currentView: 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt';
-  onViewChange: (view: 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt') => void;
+  currentView: 'sales' | 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt';
+  onViewChange: (view: 'sales' | 'month' | 'week' | 'day' | 'table' | 'kanban' | 'gantt') => void;
   categories: Category[];
   selectedCategories: string[];
   onCategoriesChange: (categories: string[]) => void;
@@ -46,6 +46,7 @@ const translations = {
     createTask: '작업 생성',
     search: '작업 검색...',
     views: '보기',
+    salesView: 'Sales 대시보드',
     ganttView: '간트 차트',
     kanbanView: '칸반 보드',
     tableView: '테이블 뷰',
@@ -69,6 +70,7 @@ const translations = {
     createTask: 'Create Task',
     search: 'Search tasks...',
     views: 'Views',
+    salesView: 'Sales Dashboard',
     ganttView: 'Gantt Chart',
     kanbanView: 'Kanban Board',
     tableView: 'Table View',
@@ -111,6 +113,7 @@ export function PMSSidebar({
 
 
   const views = [
+    { id: 'sales', name: t.salesView, icon: PieChart },
     { id: 'gantt', name: t.ganttView, icon: GanttChart },
     { id: 'kanban', name: t.kanbanView, icon: FolderKanban },
     { id: 'table', name: t.tableView, icon: BarChart3 },
